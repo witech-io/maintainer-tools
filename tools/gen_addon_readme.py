@@ -192,13 +192,6 @@ def generate_fragment(org_name, repo_name, branch, addon_name, file):
         if path.startswith("http"):
             # It is already an absolute path
             continue
-        else:
-            # remove '../' if exists that make the fragment working
-            # on github interface, in the 'readme' subfolder
-            relative_path = path.replace("../", "")
-            fragment_lines[index] = fragment_line.replace(
-                path, urljoin(module_url, relative_path)
-            )
     fragment = "".join(fragment_lines)
 
     # ensure that there is a new empty line at the end of the fragment
@@ -395,7 +388,7 @@ def gen_one_addon_readme(
                 repo_name=repo_name,
                 development_status=development_status,
                 source_digest=source_digest,
-                level3_underline="~" if fragments_format == ".rst" else "-",
+                level3_underline="~" if fragments_format == ".md" else "-",
             )
         )
 
