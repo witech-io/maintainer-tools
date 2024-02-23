@@ -116,6 +116,15 @@ RST2HTML_SETTINGS = {
     # Use the short form of syntax highlighting so that the generated
     # Pygments CSS can be used to style the output.
     "syntax_highlight": "short",
+    # Since odoo/odoo@8d06889, Odoo emits a warning
+    # if index.html contains an xml declaration
+    "xml_declaration": False,
+    # ...but even for previous versions we don't need
+    # the xml declaration as docutils adds a <meta> tag:
+    # <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    # utf-8 is default value for output_encoding
+    # but let's make it explicit here:
+    "output_encoding": "utf-8",
 }
 
 # GitHub Flavored Markdown
@@ -405,7 +414,7 @@ def gen_one_addon_index(readme_filename):
     index_filename = os.path.join(index_dir, "index.html")
     if os.path.exists(index_filename):
         with open(index_filename) as f:
-            if "oca-gen-addon-readme" not in f.read():
+            if "witech-gen-addon-readme" not in f.read():
                 # index was created manually
                 return
     if not os.path.isdir(index_dir):
