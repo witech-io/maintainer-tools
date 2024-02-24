@@ -302,7 +302,7 @@ def fragment_exists(addon_dir: str, fragment_name: str) -> bool:
     )
 
 
-def convert_fragments_to_md(addon_dir: str) -> None:
+def convert_fragments_to_rst(addon_dir: str) -> None:
     """Convert all fragments from .rst to .md format."""
     for fragment_name in FRAGMENTS:
         fragment_rst_filename = make_fragment_filename(
@@ -310,21 +310,21 @@ def convert_fragments_to_md(addon_dir: str) -> None:
             fragment_name,
             ".rst",
         )
-        if not os.path.exists(fragment_rst_filename):
-            continue
         fragment_md_filename = make_fragment_filename(
             addon_dir,
             fragment_name,
             ".md",
         )
-        if os.path.exists(fragment_md_filename):
+        if not os.path.exists(fragment_md_filename):
+            continue
+        if os.path.exists(fragment_rst_filename):
             continue
         ensure_pandoc_installed()
         pypandoc.convert_file(
-            fragment_rst_filename,
-            format="rst",
-            to=PANDOC_MARKDOWN_FORMAT,
-            outputfile=fragment_md_filename,
+            fragment_md_filename,
+            format=PANDOC_MARKDOWN_FORMAT,
+            to="rst",
+            outputfile=fragment_rst_filename,
             extra_args=["--shift-heading-level=1"],
             sandbox=True,
         )
@@ -388,7 +388,7 @@ def gen_one_addon_readme(
                 repo_name=repo_name,
                 development_status=development_status,
                 source_digest=source_digest,
-                level3_underline="~" if fragments_format == ".md" else "-",
+                level3_underline="~" if fragments_format == ".rst" else "-",
             )
         )
 
@@ -546,8 +546,7 @@ def gen_addon_readme(
         addons.append((addon_name, addon_dir, manifest))
     readme_filenames = []
     for addon_name, addon_dir, manifest in addons:
-        if convert_fragments_to_markdown:
-            convert_fragments_to_md(addon_dir)
+        convert_fragments_to_rst(addon_dir)
         if not fragment_exists(addon_dir, "DESCRIPTION"):
             continue
         readme_filename = os.path.join(addon_dir, "README.rst")
