@@ -328,7 +328,7 @@ def convert_fragments_to_rst(addon_dir: str) -> None:
             extra_args=["--shift-heading-level=1"],
             sandbox=True,
         )
-        os.remove(fragment_rst_filename)
+        os.remove(fragment_md_filename)
 
 
 def gen_one_addon_readme(
