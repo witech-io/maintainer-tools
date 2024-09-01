@@ -37,7 +37,9 @@ setuptools.setup(
         "requests",
         "toml>=0.10.0",  # for oca-towncrier
         "tomli ; python_version < '3.11'",  # from 3.11 tomllib is in stdlib
-        "towncrier>=21.3",  # for oca-towncrier
+        "towncrier>=21.3; python_version < '3.8'",  # for oca-towncrier
+        # for oca-towncrier with MarkDow support
+        "towncrier>=23.11; python_version >= '3.8'",
         "selenium",
         "twine",
         "wheel",
@@ -58,28 +60,28 @@ setuptools.setup(
     ],
     entry_points={
         "console_scripts": [
-            "witech-github-login = tools.github_login:main",
-            "witech-copy-maintainers = tools.copy_maintainers:main",
-            "witech-clone-everything = tools.clone_everything:main",
-            "witech-set-repo-labels = tools.set_repo_labels:main",
-            "witech-odoo-login = tools.odoo_login:main",
-            "witech-sync-users = tools.oca_sync_users:main",
-            "witech-gen-addons-table = tools.gen_addons_table:gen_addons_table",
-            "witech-migrate-branch = tools.migrate_branch:main",
-            "witech-migrate-branch-empty = tools.migrate_branch_empty:main",
-            "witech-publish-modules = tools.publish_modules:main",
-            "witech-gen-addon-readme = tools.gen_addon_readme:gen_addon_readme",
-            "witech-gen-addon-icon = tools.gen_addon_icon:gen_addon_icon",
-            "witech-gen-external-dependencies = tools.gen_external_dependencies:main",
-            "witech-gen-metapackage = tools.gen_metapackage:main",
-            "witech-towncrier = tools.oca_towncrier:oca_towncrier",
-            "witech-create-migration-issue = tools.create_migration_issue:main",
-            "witech-update-pre-commit-excluded-addons = "
+            "oca-github-login = tools.github_login:main",
+            "oca-copy-maintainers = tools.copy_maintainers:main",
+            "oca-clone-everything = tools.clone_everything:main",
+            "oca-set-repo-labels = tools.set_repo_labels:main",
+            "oca-odoo-login = tools.odoo_login:main",
+            "oca-sync-users = tools.oca_sync_users:main",
+            "oca-gen-addons-table = tools.gen_addons_table:gen_addons_table",
+            "oca-migrate-branch = tools.migrate_branch:main",
+            "oca-migrate-branch-empty = tools.migrate_branch_empty:main",
+            "oca-publish-modules = tools.publish_modules:main",
+            "oca-gen-addon-readme = tools.gen_addon_readme:gen_addon_readme",
+            "oca-gen-addon-icon = tools.gen_addon_icon:gen_addon_icon",
+            "oca-gen-external-dependencies = tools.gen_external_dependencies:main",
+            "oca-gen-metapackage = tools.gen_metapackage:main",
+            "oca-towncrier = tools.oca_towncrier:oca_towncrier",
+            "oca-create-migration-issue = tools.create_migration_issue:main",
+            "oca-update-pre-commit-excluded-addons = "
             "tools.update_pre_commit_excluded_addons:main",
-            "witech-fix-manifest-website = tools.fix_manifest_website:main",
-            "witech-configure-travis= tools.configure_travis:main",
-            "witech-create-branch = tools.create_branch:main",
-            "witech-copier-update = tools.copier_update:main",
+            "oca-fix-manifest-website = tools.fix_manifest_website:main",
+            "oca-configure-travis= tools.configure_travis:main",
+            "oca-create-branch = tools.create_branch:main",
+            "oca-copier-update = tools.copier_update:main",
         ],
     },
 )
